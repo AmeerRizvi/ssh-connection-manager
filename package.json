@@ -1,0 +1,99 @@
+{
+  "name": "ssh-connection-manager",
+  "displayName": "SSH Connection Manager",
+  "description": "Manage custom SSH connections in VS Code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sshManager",
+          "title": "SSH",
+          "icon": "media/ssh.svg"
+        }
+      ]
+    },
+    "views": {
+      "sshManager": [
+        {
+          "id": "sshView",
+          "name": "Connections"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "sshManager.open",
+        "title": "SSH: Open Connection"
+      },
+      {
+        "command": "sshManager.add",
+        "title": "SSH: Add Connection"
+      },
+      {
+        "command": "sshManager.rename",
+        "title": "SSH: Rename Connection"
+      },
+      {
+        "command": "sshManager.delete",
+        "title": "SSH: Delete Connection"
+      },
+      {
+        "command": "sshManager.editCommand",
+        "title": "SSH: Edit Command"
+      }
+    ],
+    "menus": {
+      "view/item/context": [
+        {
+          "command": "sshManager.rename",
+          "when": "view == sshView && viewItem == sshConnection",
+          "group": "inline"
+        },
+        {
+          "command": "sshManager.delete",
+          "when": "view == sshView && viewItem == sshConnection",
+          "group": "inline"
+        },
+        {
+          "command": "sshManager.editCommand",
+          "when": "view == sshView && viewItem == sshConnection",
+          "group": "inline"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "sshManager.add",
+          "when": "view == sshView",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.102.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
